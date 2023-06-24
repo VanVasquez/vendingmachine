@@ -1,39 +1,22 @@
+import java.util.ArrayList;
 import java.util.List;
 
-public class VendingMachine {
-    private String name;
-    private int capacity;
-    private List<Items> inventory;
-    private double totalSales;
-    public String getName() {
-        return name;
+abstract class VendingMachine {
+    protected List<ItemSlot> itemSlots;
+    protected double totalSales;
+    protected double totalChange;
+
+    public VendingMachine() {
+        itemSlots = new ArrayList<>();
+        totalChange = 0;
+        totalSales = 0;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void stockItems(List<Items> items) {
-
-    }
-
-    public void setItemPrice(String itemName, double price) {
-
-    }
-
-    public void acceptPayment(double amount) {
-
-    }
-
-    public void dispenseItem(String itemName) {
-
-    }
-
-    public void produceChange(double change) {
-
-    }
-
-    public void printTransactionSummary() {
-
-    }
+    public abstract void createVendingMachine();
+    public abstract void testVendingMachine();
+    public abstract void restockItems();
+    public abstract void setItemPrice();
+    public abstract void collectMoney();
+    public abstract void replenishChange();
+    public abstract void printTransactionSummary();
 }
