@@ -1,10 +1,10 @@
-public class ItemSlot {
+public class Item {
     private String itemName;
     private int quantity;
     private double price;
     private int calories;
 
-    public ItemSlot(String itemName, int quantity, double price, int calories) {
+    public Item(String itemName, int quantity, double price, int calories) {
         this.itemName = itemName;
         this.quantity = quantity;
         this.price = price;

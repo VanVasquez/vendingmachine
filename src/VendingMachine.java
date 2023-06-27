@@ -2,9 +2,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 abstract class VendingMachine {
-    protected List<ItemSlot> itemSlots;
+    protected List<Item> itemSlots;
     protected double totalSales;
     protected double totalChange;
+    protected String name;
 
     public VendingMachine() {
         itemSlots = new ArrayList<>();

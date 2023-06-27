@@ -1,0 +1,46 @@
+<items>
+    <item name="Twix">
+        <price value="502.0"/>
+        <calorie value="10"/>
+    </item>
+    <item name="M&amp;Ms">
+        <price value="240"/>
+        <calorie value="15"/>
+    </item>
+    <item name="Maltesers">
+        <price value="186"/>
+        <calorie value="20"/>
+    </item>
+    <item name="Reese's Peanut Butter Cups">
+        <price value="515.0"/>
+        <calorie value="10"/>
+    </item>
+    <item name="Snickers">
+        <price value="488.0"/>
+        <calorie value="10"/>
+    </item>
+    <item name="Mars">
+        <price value="242.0"/>
+        <calorie value="10"/>
+    </item>
+    <item name="Skittles">
+        <price value="60.0"/>
+        <calorie value="10"/>
+    </item>
+    <item name="Hani">
+        <price value="516.0"/>
+        <calorie value="10"/>
+    </item>
+    <item name="Champi">
+        <price value="516.0"/>
+        <calorie value="10"/>
+    </item>
+    <item name="Cloud 9">
+        <price value="516.0"/>
+        <calorie value="10"/>
+    </item>
+    <item name="Pochi">
+        <price value="516.0"/>
+        <calorie value="10"/>
+    </item>
+</items>

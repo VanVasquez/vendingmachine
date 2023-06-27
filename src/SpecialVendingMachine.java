@@ -1,5 +1,3 @@
-import java.sql.SQLOutput;
-
 public class SpecialVendingMachine extends VendingMachine{
     @Override
     public void createVendingMachine() {
@@ -18,7 +16,7 @@ public class SpecialVendingMachine extends VendingMachine{
 
     @Override
     public void setItemPrice() {
-        System.out.println("SET ITEMS IN SPECIAL VENDING MACHINE");
+
     }
 
     @Override
