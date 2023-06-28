@@ -6,6 +6,7 @@ abstract class VendingMachine {
     protected double totalSales;
     protected double totalChange;
     protected String name;
+    protected int balance;
     protected List<Transaction> transactions;
 
     public VendingMachine() {

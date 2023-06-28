@@ -2,9 +2,9 @@ public class Transaction {
     private String name;
 
     private int quantity;
-    private float totalPrice;
+    private double totalPrice;
 
-    public Transaction(String name, int quantity, float totalPrice) {
+    public Transaction(String name, int quantity, double totalPrice) {
         this.name = name;
         this.quantity = quantity;
         this.totalPrice = totalPrice;
@@ -18,7 +18,7 @@ public class Transaction {
         return quantity;
     }
 
-    public float getTotalPrice() {
+    public double getTotalPrice() {
         return totalPrice;
     }
 
