@@ -1,46 +1,58 @@
 <items>
     <item name="Twix">
-        <price value="502.0"/>
-        <calorie value="10"/>
+        <calorie value="502.0"/>
+        <price value="10"/>
     </item>
     <item name="M&amp;Ms">
-        <price value="240"/>
-        <calorie value="15"/>
+        <calorie value="240"/>
+        <price value="15"/>
     </item>
     <item name="Maltesers">
-        <price value="186"/>
-        <calorie value="20"/>
+        <calorie value="186"/>
+        <price value="20"/>
     </item>
     <item name="Reese's Peanut Butter Cups">
-        <price value="515.0"/>
-        <calorie value="10"/>
+        <calorie value="515.0"/>
+        <price value="10"/>
     </item>
     <item name="Snickers">
-        <price value="488.0"/>
-        <calorie value="10"/>
+        <calorie value="488.0"/>
+        <price value="10"/>
     </item>
     <item name="Mars">
-        <price value="242.0"/>
-        <calorie value="10"/>
+        <calorie value="242.0"/>
+        <price value="10"/>
     </item>
     <item name="Skittles">
-        <price value="60.0"/>
-        <calorie value="10"/>
+        <calorie value="60.0"/>
+        <price value="10"/>
     </item>
-    <item name="Hani">
-        <price value="516.0"/>
-        <calorie value="10"/>
+    <item name="Kitkat">
+        <calorie value="516.0"/>
+        <price value="10"/>
     </item>
-    <item name="Champi">
-        <price value="516.0"/>
-        <calorie value="10"/>
+    <item name="Milky Way">
+        <calorie value="240.0"/>
+        <price value="10"/>
     </item>
-    <item name="Cloud 9">
-        <price value="516.0"/>
-        <calorie value="10"/>
+    <item name="Hershey’s">
+        <calorie value="190.0"/>
+        <price value="10"/>
     </item>
-    <item name="Pochi">
-        <price value="516.0"/>
-        <calorie value="10"/>
+    <item name="Cadbury">
+        <calorie value="240.0"/>
+        <price value="10"/>
+    </item>
+    <item name="Ferrero Rocher">
+        <calorie value="73.0"/>
+        <price value="10"/>
+    </item>
+    <item name="Toblerone">
+        <calorie value="190.0"/>
+        <price value="10"/>
+    </item>
+    <item name="3 Musketeers">
+        <calorie value="190.0"/>
+        <price value="10"/>
     </item>
 </items>
