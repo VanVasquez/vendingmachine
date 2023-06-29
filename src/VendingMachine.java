@@ -37,7 +37,10 @@ abstract class VendingMachine {
             System.out.println("Cancelled");
             return;
         }
-
+        if (index < 0 || index > itemSlots.size()) {
+            System.out.println("Invalid item");
+            return;
+        }
         System.out.println("Enter quantity");
         int quantity = getUserInput();
 
