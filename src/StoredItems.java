@@ -42,13 +42,13 @@ public class StoredItems {
                     Element itemElement = (Element) itemNode;
                     String itemName = itemElement.getAttribute("name");
 
+                    // Get the calorie element
+                    Element calorieElement = (Element) itemElement.getElementsByTagName("calorie").item(0);
+                    float calorieValue = Float.parseFloat(calorieElement.getAttribute("value"));
+
                     // Get the price element
                     Element priceElement = (Element) itemElement.getElementsByTagName("price").item(0);
                     float priceValue = Float.parseFloat(priceElement.getAttribute("value"));
-
-                    // Get the calorie element
-                    Element calorieElement = (Element) itemElement.getElementsByTagName("calorie").item(0);
-                    int calorieValue = Integer.parseInt(calorieElement.getAttribute("value"));
 
                     Item item = new Item(itemName, 0, priceValue, calorieValue);
                     itemsList.add(item);

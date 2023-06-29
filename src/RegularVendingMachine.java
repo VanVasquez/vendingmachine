@@ -6,12 +6,10 @@ import java.util.Scanner;
 public class RegularVendingMachine extends VendingMachine{
     private int slot;   //Specifies the slot of vending machine
     private int capacity;   //Specifies the capacity of each slot
-    private final Scanner scanner;
     StoredItems storedItems = new StoredItems();
 
     public RegularVendingMachine() {
         super();
-        scanner = new Scanner(System.in);
         storedItems.readXMLFile("items.xml");
         transactions = new ArrayList<>();
     }
@@ -30,14 +28,7 @@ public class RegularVendingMachine extends VendingMachine{
         System.out.println("Enter max slots");
         System.out.print(">> ");
         do {
-            try {
-                slot = scanner.nextInt();
-                scanner.nextLine();
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter a valid integer.");
-                scanner.nextLine();
-                continue;
-            }
+            slot = getUserInput();
             if(slot < 8 || slot > 10) {
                 System.out.println("Invalid input, please enter a value between 8 and 10");
             }
@@ -48,14 +39,7 @@ public class RegularVendingMachine extends VendingMachine{
         System.out.println("Enter max capacity");
         System.out.print(">> ");
         do {
-            try {
-                capacity = scanner.nextInt();
-                scanner.nextLine();
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter a valid integer.");
-                scanner.nextLine();
-                continue;
-            }
+           capacity = getUserInput();
             if(capacity < 10 || capacity > 20) {
                 System.out.println("Invalid input, please enter a value between 10 and 20");
             }
@@ -69,15 +53,7 @@ public class RegularVendingMachine extends VendingMachine{
         for (int i = 0; i < slot; i++) {
             int itemIndex;
             System.out.print(">> ");
-            try {
-                itemIndex = scanner.nextInt();
-                scanner.nextLine();
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter a valid integer.");
-                scanner.nextLine();
-                i--;
-                continue;
-            }
+            itemIndex = getUserInput();
 
             if (!(itemIndex >= 0 && itemIndex < itemList.size())) {
                 System.out.println("Invalid selection, Please choose a valid item index");
@@ -106,55 +82,28 @@ public class RegularVendingMachine extends VendingMachine{
             System.out.println("+------------------------------------------+");
             System.out.print(">> ");
 
-            try {
-                option = scanner.nextInt();
-                scanner.nextLine();
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter a valid integer.");
-                scanner.nextLine();
-                continue;
-            }
+            option = getUserInput();
 
             if (option == 0) break;
             switch (option) {
                 //Testing Vending Machine
                 case 1 -> {
-                    int[] denominations = {1000, 500, 200, 100, 50, 20, 10, 5, 1};
                     int choice, quantity;
                     Item pickedItem;
                     System.out.println();
                     while (true) {
-
                         //Display's Vending Machine Name
                         System.out.println(name + " Vending Machine\n");
 
                         //Display Products
                         System.out.println("Products for sale: ");
-                        System.out.println("[Index]\tItem\t\t\t\t\tPrice\tCalorie\tQuantity");
-                        for (int i = 0; i < itemSlots.size(); i++) {
-                            Item item = itemSlots.get(i);
-                            System.out.printf(
-                                    "[%d]:\t%-30s %.2f\t%d\t%d\n",
-                                    i + 1,
-                                    item.getItemName(),
-                                    item.getPrice(),
-                                    item.getCalories(),
-                                    item.getQuantity()
-                            );
-                        }
+                        displayItems();
                         System.out.println("[0] - Exit");
                         System.out.println("Choose an item.");
                         System.out.print(">> ");
 
                         //Check if choice is valid
-                        try {
-                            choice = scanner.nextInt();
-                            scanner.nextLine();
-                        } catch (InputMismatchException e) {
-                            System.out.println("Invalid input. Please enter a valid integer.");
-                            scanner.nextLine();
-                            continue;
-                        }
+                        choice = getUserInput();
 
                         if (choice == 0) {
                             System.out.println("Transaction Cancelled");
@@ -177,14 +126,7 @@ public class RegularVendingMachine extends VendingMachine{
 
                         while (true) {
                             System.out.print("Enter quantity: ");
-                            try {
-                                quantity = scanner.nextInt();
-                                scanner.nextLine();
-                            } catch (InputMismatchException e) {
-                                System.out.println("Invalid input. Please enter a valid integer.");
-                                scanner.nextLine();
-                                continue;
-                            }
+                            quantity = getUserInput();
 
                             if (quantity <= pickedItem.getQuantity()) {
                                 break;
@@ -196,7 +138,6 @@ public class RegularVendingMachine extends VendingMachine{
 
                         if (!(quantity > 0 && quantity <= pickedItem.getQuantity())) {
                             System.out.println("Transaction cancelled");
-
                         }
 
                         //COMPUTING
@@ -216,7 +157,7 @@ public class RegularVendingMachine extends VendingMachine{
                             System.out.println("Insert money [20 / 50 / 100 / 200 / 500 / 1000]");
                             System.out.println("Enter 0 if done inserting...");
                             System.out.print(">> ");
-                            amount = scanner.nextInt();
+                            amount = getUserInput();
                             if (amount == 20 || amount == 50 || amount == 100 || amount == 200 || amount == 500 || amount == 1000) {
                                 balance += amount;
                             } else if (amount == 0) {
@@ -304,128 +245,5 @@ public class RegularVendingMachine extends VendingMachine{
 
             }
         }
-    }
-
-    @Override
-    public void restockItems() {
-        Item pickedItem;
-        System.out.println("[Index]\tItem\t\t\t\t\tQuantity");
-
-        for (int i = 0; i < itemSlots.size(); i++) {
-            Item item = itemSlots.get(i);
-            System.out.printf("[%d]:\t%-30s\t%d\n", i+1, item.getItemName(), item.getQuantity());
-        }
-        System.out.println("Enter item to restock");
-        System.out.print(">> ");
-        int index;
-        try {
-            index = scanner.nextInt();
-            scanner.nextLine();
-            System.out.println("Enter quantity");
-            int quantity;
-            try {
-                quantity = scanner.nextInt();
-                scanner.nextLine();
-                if (!(quantity < 0 || quantity > capacity)) {
-                    pickedItem = itemSlots.get(index-1);
-                    pickedItem.setQuantity(pickedItem.getQuantity() + quantity);
-                    System.out.println("Restocked successfully");
-                } else {
-                    System.out.println("Exceeds capacity");
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input.");
-                scanner.nextLine();
-            }
-        } catch (InputMismatchException e) {
-            System.out.println("Invalid input.");
-            scanner.nextLine();
-        }
-    }
-
-    @Override
-    public void setItemPrice() {
-        Item pickedItem;
-        System.out.println("[Index]\tItem\t\t\t\t\tPrice\tCalorie");
-        for (int i = 0; i < itemSlots.size(); i++) {
-            Item item = itemSlots.get(i);
-            System.out.printf("[%d]:\t%-30s %.2f\n", i+1, item.getItemName(), item.getPrice());
-        }
-        System.out.println("Enter item to change price");
-        System.out.print(">> ");int index;
-        try {
-            index = scanner.nextInt();
-            scanner.nextLine();
-            System.out.println("Enter new price");
-            double price;
-            try {
-                price = scanner.nextDouble();
-                pickedItem = itemSlots.get(index-1);
-                pickedItem.setPrice(price);
-                System.out.println("Price changed successfully");
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input.");
-                scanner.nextLine();
-            }
-        } catch (InputMismatchException e) {
-            System.out.println("Invalid input.");
-            scanner.nextLine();
-        }
-    }
-
-    @Override
-    public void collectMoney() {
-        int[] denominations = {1000, 500, 200, 100, 50, 20, 10, 5, 1};
-        double collect;
-        System.out.println("Total Earnings: " + totalSales);
-        System.out.println("Enter value you want to collect.");
-        System.out.print(">> ");
-        collect = scanner.nextDouble();
-        System.out.println("Collecting Money...");
-        if(collect > 0) {
-            if(collect <= totalSales) {
-                double i = collect;
-                for (int denomination : denominations) {
-                    while (i >= denomination) {
-                        System.out.println(denomination);
-                        i -= denomination;
-                    }
-                }
-                System.out.println("Successfully collected Php." + collect);
-                totalSales -= collect;
-            } else {
-                System.out.println("Not enough value, try again later..\n");
-            }
-        } else {
-            System.out.println("Something went wrong");
-        }
-    }
-
-    @Override
-    public void replenishChange() {
-        double change;
-        System.out.println("Enter value of change");
-        System.out.print(">> ");
-        change = scanner.nextDouble();
-        System.out.println("Inserting money...");
-        if(change > 0) {
-            totalChange += change;
-        }
-        else {
-            System.out.println("Something went wrong");
-        }
-        System.out.println("Total value of change: " + totalChange);
-    }
-
-    @Override
-    public void printTransactionSummary() {
-        double totalEarning = 0;
-        System.out.println("TRANSACTIONS");
-        System.out.println("Name\t\t\t\t\tQuantity\tPrice");
-        for(Transaction transaction : transactions) {
-            System.out.printf("%-30s \t%d\t%.2f\n", transaction.getName(), transaction.getQuantity(), transaction.getTotalPrice());
-            totalEarning += transaction.getTotalPrice();
-        }
-        System.out.println("Total Earnings: " + totalEarning);
     }
 }

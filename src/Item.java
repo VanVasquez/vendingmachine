@@ -2,9 +2,9 @@ public class Item {
     private String itemName;
     private int quantity;
     private double price;
-    private int calories;
+    private double calories;
 
-    public Item(String itemName, int quantity, double price, int calories) {
+    public Item(String itemName, int quantity, double price, double calories) {
         this.itemName = itemName;
         this.quantity = quantity;
         this.price = price;
@@ -35,11 +35,8 @@ public class Item {
         this.price = price;
     }
 
-    public int getCalories() {
+    public double getCalories() {
         return calories;
     }
 
-    public void setCalories(int calories) {
-        this.calories = calories;
-    }
 }
