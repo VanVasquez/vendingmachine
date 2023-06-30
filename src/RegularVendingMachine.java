@@ -191,5 +191,4 @@ public class RegularVendingMachine extends VendingMachine{
             System.out.println("Transaction Complete.");
         }
     }
-
 }

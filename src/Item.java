@@ -1,5 +1,5 @@
 public class Item {
-    private String itemName;
+    private final String itemName;
     private int quantity;
     private double price;
     private double calories;

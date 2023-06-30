@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class SpecialVendingMachine extends VendingMachine{
     StoredItems storedItems = new StoredItems();
     StoredItems flavors = new StoredItems();
+    List<Item> myFlavor;
     Item customizableItem;
     public SpecialVendingMachine() {
         super();
@@ -13,6 +14,7 @@ public class SpecialVendingMachine extends VendingMachine{
         storedItems.readXMLFile("items.xml");
         flavors.readXMLFile("flavors.xml");
         transactions = new ArrayList<>();
+        myFlavor = flavors.getItemsList();
     }
     @Override
     public void createVendingMachine() {
@@ -74,7 +76,6 @@ public class SpecialVendingMachine extends VendingMachine{
 
     @Override
     public void vendingMachineFeatures() {
-        List<Item> myFlavor = flavors.getItemsList();
         int choice;
         List<Item> pickedItem = new ArrayList<>();
         Item pickedFlavor;
@@ -102,6 +103,11 @@ public class SpecialVendingMachine extends VendingMachine{
             }
 
             pickedFlavor = myFlavor.get(choice - 1);
+            if(pickedFlavor.getQuantity() <= 0) {
+                System.out.println(pickedFlavor.getItemName() + " is out of stock");
+                return;
+            }
+
             pickedItem.add(pickedFlavor);
 
             while (true) {
@@ -189,6 +195,8 @@ public class SpecialVendingMachine extends VendingMachine{
                 }
                 break;
             }
+
+            prepareItem(pickedItem.get(0), pickedItem.subList(1, pickedItem.size()));
             //If Vending machine has enough change.
             totalChange -= balance;
             totalSales += price;
@@ -200,10 +208,82 @@ public class SpecialVendingMachine extends VendingMachine{
                     balance -= denomination;
                 }
             }
-
             System.out.println("Done...");
             System.out.println("Transaction Complete.");
         }
     }
 
+
+    @Override
+    public void restockItems() {
+        List<Item> items= new ArrayList<>();
+        items.addAll(myFlavor);
+        items.addAll(itemSlots);
+
+        displayItems(items);
+        System.out.println("Enter flavor to restock");
+        int index = getUserInput();
+
+        if (index == 0) {
+            System.out.println("Cancelled");
+            return;
+        }
+        if (index < 0 || index > items.size()) {
+            System.out.println("Invalid item");
+            return;
+        }
+        System.out.println("Enter quantity");
+        int quantity = getUserInput();
+
+        if (quantity < 0 || quantity > capacity) {
+            System.out.println("Exceeds capacity");
+            return;
+        }
+
+        Item pickedItem = items.get(index - 1);
+        pickedItem.setQuantity(pickedItem.getQuantity() + quantity);
+        System.out.println("Restocked successfully");
+
+    }
+    @Override
+    public void setItemPrice() {
+        List<Item> items= new ArrayList<>();
+        items.addAll(myFlavor);
+        items.addAll(itemSlots);
+
+        displayItems(items);
+        System.out.println("[0] - Exit ");
+        System.out.println("Enter item to change price");
+        System.out.print(">> ");
+        int index = getUserInput();
+
+        if (index == 0) {
+            System.out.println("Cancelled");
+            return;
+        }
+
+        if (index < 0 || index > items.size()) {
+            System.out.println("Invalid item");
+            return;
+        }
+
+        System.out.println("Enter new price");
+        double price = getUserInput();
+
+        Item pickedItem = items.get(index-1);
+        pickedItem.setPrice(price);
+        System.out.println("Price changed successfully");
+
+    }
+    private void prepareItem(Item flavor, List<Item> toppings) {
+        System.out.println("-----------------------------------------------------");
+        System.out.println("Preparing " + flavor.getItemName());
+        System.out.print("Adding ");
+        for (Item top: toppings) {
+            System.out.print(top.getItemName() + ", ");
+        }
+        System.out.println("");
+        System.out.println("-----------------------------------------------------");
+        System.out.println("");
+    }
 }
