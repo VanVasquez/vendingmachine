@@ -3,6 +3,10 @@ public class Item {
     private int quantity;
     private double price;
     private double calories;
+    public Item(String itemName, int quantity) {
+        this.itemName = itemName;
+        this.quantity = quantity;
+    }
 
     public Item(String itemName, int quantity, double price, double calories) {
         this.itemName = itemName;
@@ -15,9 +19,6 @@ public class Item {
         return itemName;
     }
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
 
     public int getQuantity() {
         return quantity;

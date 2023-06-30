@@ -12,6 +12,7 @@ abstract class VendingMachine {
     protected Scanner scanner;
     protected int[] denominations = {1000, 500, 200, 100, 50, 20, 10, 5, 1};
     protected int capacity;
+    protected int slot;   //Specifies the slot of vending machine
     protected int balance;
 
     public VendingMachine() {
@@ -25,10 +26,64 @@ abstract class VendingMachine {
     }
 
     public abstract void createVendingMachine();
-    public abstract void testVendingMachine();
+    public abstract void vendingMachineFeatures();
+    protected void testVendingMachine() {
+        int option;
+        while (true) {
+            System.out.println("+------------------------------------------+");
+            System.out.println("| TEST VENDING MACHINE                     |");
+            System.out.println("| [1] - Vending Machine Features           |");
+            System.out.println("| [2] - Maintenance Features               |");
+            System.out.println("| [0] - EXIT                               |");
+            System.out.println("+------------------------------------------+");
+            System.out.print(">> ");
+
+            option = getUserInput();
+
+            if (option == 0) break;
+            switch (option) {
+                //Testing Vending Machine
+                case 1 -> vendingMachineFeatures();
+
+                case 2 -> {
+                    int choice;
+                    while (true) {
+                        System.out.println("Maintenance Features.");
+                        System.out.println("[1] - Restock Items");
+                        System.out.println("[2] - Price Items");
+                        System.out.println("[3] - Collect Money");
+                        System.out.println("[4] - Replenish Change");
+                        System.out.println("[5] - Print Transactions");
+                        System.out.println("[0] - Exit ");
+
+                        try {
+                            choice = scanner.nextInt();
+                            scanner.nextLine();
+                        } catch (InputMismatchException e) {
+                            System.out.println("Invalid input. Please enter a valid integer.");
+                            scanner.nextLine();
+                            continue;
+                        }
+
+                        if (choice == 0 ) break;
+                        switch (choice) {
+                            case 1 -> restockItems();
+                            case 2 -> setItemPrice();
+                            case 3 -> collectMoney();
+                            case 4 -> replenishChange();
+                            case 5 ->  printTransactionSummary();
+                            default -> System.out.println("Invalid selection");
+                        }
+                    }
+                }
+                default -> System.out.println("Invalid selection");
+
+            }
+        }
+    }
 
     protected void restockItems() {
-        displayItems();
+        displayItems(itemSlots);
         System.out.println("Enter item to restock");
         System.out.print(">> ");
         int index = getUserInput();
@@ -55,14 +110,25 @@ abstract class VendingMachine {
     }
 
     protected void setItemPrice() {
-        displayItems();
+        displayItems(itemSlots);
         System.out.println("[0] - Exit ");
         System.out.println("Enter item to change price");
         System.out.print(">> ");
         int index = getUserInput();
 
+        if (index == 0) {
+            System.out.println("Cancelled");
+            return;
+        }
+
+        if (index < 0 || index > itemSlots.size()) {
+            System.out.println("Invalid item");
+            return;
+        }
+
         System.out.println("Enter new price");
         double price = getUserInput();
+
         Item pickedItem = itemSlots.get(index-1);
         pickedItem.setPrice(price);
         System.out.println("Price changed successfully");
@@ -112,17 +178,18 @@ abstract class VendingMachine {
         System.out.println("TRANSACTIONS");
         System.out.println("Name\t\t\t\t\tQuantity\tPrice");
         for(Transaction transaction : transactions) {
-            System.out.printf("%-30s \t%d\t%.2f\n", transaction.getName(), transaction.getQuantity(), transaction.getTotalPrice());
+            Item item = transaction.getItem();
+            System.out.printf("%-30s \t%d\t%.2f\n", item.getItemName(), item.getQuantity(), transaction.getTotalPrice());
             totalEarning += transaction.getTotalPrice();
         }
         System.out.println("Total Earnings: " + totalEarning);
     }
 
-    protected void displayItems() {
+    protected void displayItems(List<Item> items) {
         System.out.println("ITEMS");
         System.out.println("Index\tName\t\t\t\t\t\t\tPrice\tCalorie\tQuantity");
-        for (int i = 0; i < itemSlots.size(); i++) {
-            Item item = itemSlots.get(i);
+        for (int i = 0; i < items.size(); i++) {
+            Item item = items.get(i);
             System.out.printf("%-6d %-30s\t%.2f\t%.2f\t%d\n", (i + 1), item.getItemName(), item.getPrice(),
                     item.getCalories(),item.getQuantity());
         }

@@ -1,21 +1,26 @@
+import java.util.List;
+
 public class Transaction {
-    private String name;
+    private final Item item;
+    private List<Item> flavor;
+    private final double totalPrice;
 
-    private int quantity;
-    private double totalPrice;
-
-    public Transaction(String name, int quantity, double totalPrice) {
-        this.name = name;
-        this.quantity = quantity;
+    public Transaction(Item item, List<Item> flavor, double totalPrice) {
+        this.item = item;
+        this.flavor = flavor;
         this.totalPrice = totalPrice;
     }
 
-    public String getName() {
-        return name;
+    public Transaction(Item item, double totalPrice) {
+        this.item = item;
+        this.totalPrice = totalPrice;
+    }
+    public List<Item> getFlavor() {
+        return flavor;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public Item getItem() {
+        return item;
     }
 
     public double getTotalPrice() {
